@@ -1,0 +1,204 @@
+<!-- this page is a simple practice of tic-tac-toe which contains all its required or associated js code  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- using stylesheet style.scss which is compiled to style.css-->
+    <link rel="stylesheet" href="./styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Tic Tac Toe</h1>
+    </div>
+    <div class="board-container">
+        <div class="button-container">
+            <button id="again">Play Again</button>
+        </div>
+        <div class="board"></div>
+        <div class="players">
+            <div class="player-wrapper active">
+                <span id="player1" class="player1 state">O</span>
+                <label for="player1">Player 1</label>
+            </div>
+            <div class="player-wrapper">
+                <span id="player2" class="player2 state">X</span>
+                <label for="player2">Player 2</label>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- all js code and functions start here  -->
+<script>
+    
+    let pattern = [
+            0, 0, 0,
+            0, 0, 0,
+            0, 0, 0
+        ];
+
+    let player = 1;
+
+    const playAgain = document.querySelector('#again');
+    const currentPlayers = document.querySelectorAll('.player-wrapper');
+    //initiate pattern
+    playAgain.addEventListener('click', ()=>{
+        pattern = [
+            0, 0, 0,
+            0, 0, 0,
+            0, 0, 0
+        ];
+        show();
+        });
+
+
+
+    function show(){
+        let board = document.querySelector('.board');
+        board.innerHTML = "";
+        for(let i=0; i<3; i++){
+            for(let j=0; j<3; j++){
+                let point = i * 3 + j;
+                const cell = document.createElement('div');
+                cell.addEventListener('click', () => handleClick(point));
+                cell.classList.add('cell');
+                if(pattern[point] === 1) cell.classList.add('player1');
+                if(pattern[point]  === 2 ) cell.classList.add('player2');
+                cell.innerText = pattern[point] == 2 ? "X": pattern[point] == 1 ? "O":" ";
+                board.appendChild(cell);
+            }
+    
+        
+        }
+    }
+    // toggle between player1 and player2
+    function togglePlayer(){
+        player = 3 - player;
+        currentPlayers.forEach((o) => o.classList.toggle('active'));
+    }
+    
+    function handleClick(point){
+        if(pattern[point] === 0){
+            pattern[point] = player;
+            show();
+            if(check(pattern, player)){
+                setTimeout(() => {
+                    alert('player'+player+' wins!');
+                    playAgain.click();}, 100)
+                return void(0);
+            };
+            togglePlayer();
+            setTimeout(() => autoPlay(), 400);
+        }
+    }
+
+    function autoPlay(){
+        let pNext = bestChoice(pattern, player).next;
+        pattern[pNext] = player;
+        show();
+        if(check(pattern, player)){
+                setTimeout(() => {
+                    alert('player'+player+' wins!');
+                    playAgain.click();}, 100)
+                return void(0);
+            };
+        togglePlayer();
+    
+    }
+
+    function check(pattern, player){
+        {
+            // chech each row
+            for(let i = 0; i < 3; i++){
+                let win = true;
+                for(let j = 0; j < 3; j++){
+                    if(pattern[i * 3 + j] !== player) win = false;
+                }
+                if(win) return true;
+            }
+        }
+        {
+            // check each colum
+            for(let i = 0; i < 3; i++){
+                let win = true;
+                for(let j = 0; j < 3; j++){
+                    if(pattern[j * 3 + i] !== player) win = false;
+                }
+                if(win) return true;
+            }
+        }
+        {
+            //  check 45 degree 
+            let win = true;
+            for(let i = 0; i < 3; i++){
+                if(pattern[i * 3 + i] !== player) win = false;
+
+            }
+            if(win) return true;
+        }
+        {
+            //  check 135 degree
+            let win = true;
+            for(i = 0; i < 3; i++){
+                if(pattern[2 * i + 2] !== player) win = false;
+            }
+            if(win) return true;
+        }
+    }
+
+    function willWin(pattern, player){
+        for(let i = 0; i < 3; i++){
+            for(let j = 0; j < 3; j++){
+                let clonePattern = clone(pattern);
+                let point = i * 3 + j;
+                if(!clonePattern[point]){
+                    clonePattern[point] = player;
+                    if(check(clonePattern, player)){
+                        return point;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    function bestChoice(pattern, player){
+        let next = willWin(pattern, player);
+        if(next){
+            return { next: next, result: 1};
+        }
+        
+        let point = null;
+        let result = -2;
+        for(let i = 0; i < 3; i++){
+            for(let j = 0; j < 3; j++){
+                if(pattern[i * 3 + j]) continue;
+                let clonePattern = clone(pattern);
+                clonePattern[i * 3 + j] = player;
+                let opponent = bestChoice(clonePattern, 3 - player).result;
+                if(-opponent > result){
+                    point = i * 3 + j;
+                    result = -opponent;
+                }
+            }
+        }
+        if(point){
+            return { next: point, result: result};
+        }else{
+            return { next: point, result: 0}
+        }
+        
+    }
+
+    function clone(pattern){
+        return Object.create(pattern);
+    }
+
+
+    show();
+
+</script>
+</html>

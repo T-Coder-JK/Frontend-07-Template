@@ -1,0 +1,192 @@
+// variables
+$container-border: #b3bbb0;
+$background:#FFFF;
+$cell-hover: #F5F5F5;
+$button: #1D3557;
+$button-shadow: #3D70B8;
+$slate-color: rgb(16,24,50);
+$french-violet-color: #6930c3;
+$turquoise-color: #72efdd;
+$purple-color:#7400B8;
+$crayola-color: #56CFE1;
+
+//mixins
+@mixin grid ($colm, $bw){
+    float: left;
+    border-right: solid 1px $container-border;
+    border-bottom: solid 1px $container-border;
+    width: ((100% - ($colm - 1) * $bw) /  $colm);
+    &:nth-child(#{$colm}n){
+        border-right: 0;
+    }
+};
+
+@mixin clear-float {
+    &::after{
+        content: '';
+        display: block;
+        clear: both;
+    }
+}
+
+@mixin transition-all {
+    -webkit-transition: all 40ms ease-in-out;
+    -moz-transition: all 40ms ease-in-out;
+    -o-transition: all 40ms ease-in-out;
+      transition: all 40ms ease-in-out;
+  }
+
+// class, id, tag element css
+.header{
+    h1{
+        text-align: center;
+        align-items: center;
+    }
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    font-size: 16px;
+    background: $background;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.board-container{
+    width: 100%;
+    margin-top: 10vh;
+
+}
+#again{
+    font-size: 2em;
+    color: $slate-color;
+    cursor: pointer;
+    display: inline-block;
+    letter-spacing: 0.0075em;
+    padding: .8em 1em;
+    margin: auto 2em;
+    position: relative;
+    text-transform: uppercase;
+    border: 3px $french-violet-color solid;
+    border-image: linear-gradient(45deg, $french-violet-color 0%, 
+    $turquoise-color 100%);
+    border-image-slice: 1 1 0 0;
+    z-index: 1;
+    box-shadow: -0.8em 0.8em 0.15em transparentize($slate-color, 0.9);
+    transform-origin: left bottom;
+    @include transition-all;
+
+    &:before, &:after{
+        border: 3px $french-violet-color solid;
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: -1;
+    }
+
+    &::before{
+        border-image: linear-gradient(45deg, $french-violet-color 0%, adjust-hue($french-violet-color, 10%) 100%);
+        border-image-slice: 1 1 0 1;
+        background-image: linear-gradient(45deg, $turquoise-color 0%, $french-violet-color 100%);
+        left: -0.59em;
+        top: 0.15em;
+        width: 0.31em;
+        height: 100%;
+        transform: skewY(-45deg);
+    }
+
+    &::after{
+        border-image: linear-gradient(45deg, $french-violet-color 0%, $turquoise-color 100%);
+        border-image-slice: 1 1 1 0;
+        background-image: linear-gradient(45deg, $turquoise-color 0%, $french-violet-color 100%);
+        bottom: -0.61em; right: 0.16em;
+        width: 100%;
+        height: .31em;
+        transform: skewX(-45deg);
+    }
+
+    &:hover{
+        background-color: white;
+        background-size: 90%;
+    }
+    &:active{
+        transform: translate(-0.2em, 0.2em);
+        box-shadow: 0em 0em 0.15em transparentize($slate-color, 0.9);
+    }
+}
+
+.button-container{
+    width: 100%;
+    height: auto;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.board{
+    width: 80%;
+    min-width: 150px;
+    max-width: 500px;
+    border: 1px solid $container-border;
+    border-bottom: 0;
+    margin: auto;
+    @include clear-float;
+}
+
+.cell{
+    display: flex;
+    height: 140px;
+    font-size: 5em;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    @include grid(3, 0.3%);
+    &:hover{
+        background: $cell-hover;
+    }
+}
+
+.player1{
+    color:$purple-color;
+}
+.player2{
+    color:$crayola-color;
+}
+
+.players{
+    width: 80%;
+    margin: 3em auto;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+.player-wrapper{
+    display: flex;
+    align-items: center;
+    width: 10em;
+    justify-content: center;
+    .state{
+        font-size: 2.5em;
+        font-weight: bolder;
+        padding-right: 0.3em;
+    }
+}
+
+.player-wrapper.active{
+    background: #d3edee;
+    border-radius: 8px;
+    .state{
+        font-size: 3.2em;
+        padding-right: 0 0.6em;
+    }
+    label{
+        font-size: 1.4em;
+        color: $slate-color;
+    }
+    @include transition-all;
+    transform: translate(0, -1.2em);
+}
+
+
+
+

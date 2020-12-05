@@ -1,0 +1,200 @@
+.header h1 {
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  font-size: 16px;
+  background: #FFFF;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.board-container {
+  width: 100%;
+  margin-top: 10vh;
+}
+
+#again {
+  font-size: 2em;
+  color: #101832;
+  cursor: pointer;
+  display: inline-block;
+  letter-spacing: 0.0075em;
+  padding: .8em 1em;
+  margin: auto 2em;
+  position: relative;
+  text-transform: uppercase;
+  border: 3px #6930c3 solid;
+  -o-border-image: linear-gradient(45deg, #6930c3 0%, #72efdd 100%);
+     border-image: linear-gradient(45deg, #6930c3 0%, #72efdd 100%);
+  border-image-slice: 1 1 0 0;
+  z-index: 1;
+  -webkit-box-shadow: -0.8em 0.8em 0.15em rgba(16, 24, 50, 0.1);
+          box-shadow: -0.8em 0.8em 0.15em rgba(16, 24, 50, 0.1);
+  -webkit-transform-origin: left bottom;
+          transform-origin: left bottom;
+  -webkit-transition: all 40ms ease-in-out;
+  transition: all 40ms ease-in-out;
+}
+
+#again:before, #again:after {
+  border: 3px #6930c3 solid;
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+}
+
+#again::before {
+  -o-border-image: linear-gradient(45deg, #6930c3 0%, #8230c3 100%);
+     border-image: linear-gradient(45deg, #6930c3 0%, #8230c3 100%);
+  border-image-slice: 1 1 0 1;
+  background-image: linear-gradient(45deg, #72efdd 0%, #6930c3 100%);
+  left: -0.59em;
+  top: 0.15em;
+  width: 0.31em;
+  height: 100%;
+  -webkit-transform: skewY(-45deg);
+          transform: skewY(-45deg);
+}
+
+#again::after {
+  -o-border-image: linear-gradient(45deg, #6930c3 0%, #72efdd 100%);
+     border-image: linear-gradient(45deg, #6930c3 0%, #72efdd 100%);
+  border-image-slice: 1 1 1 0;
+  background-image: linear-gradient(45deg, #72efdd 0%, #6930c3 100%);
+  bottom: -0.61em;
+  right: 0.16em;
+  width: 100%;
+  height: .31em;
+  -webkit-transform: skewX(-45deg);
+          transform: skewX(-45deg);
+}
+
+#again:hover {
+  background-color: white;
+  background-size: 90%;
+}
+
+#again:active {
+  -webkit-transform: translate(-0.2em, 0.2em);
+          transform: translate(-0.2em, 0.2em);
+  -webkit-box-shadow: 0em 0em 0.15em rgba(16, 24, 50, 0.1);
+          box-shadow: 0em 0em 0.15em rgba(16, 24, 50, 0.1);
+}
+
+.button-container {
+  width: 100%;
+  height: auto;
+  margin-bottom: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.board {
+  width: 80%;
+  min-width: 150px;
+  max-width: 500px;
+  border: 1px solid #b3bbb0;
+  border-bottom: 0;
+  margin: auto;
+}
+
+.board::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.cell {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 140px;
+  font-size: 5em;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  float: left;
+  border-right: solid 1px #b3bbb0;
+  border-bottom: solid 1px #b3bbb0;
+  width: 33.13333%;
+}
+
+.cell:nth-child(3n) {
+  border-right: 0;
+}
+
+.cell:hover {
+  background: #F5F5F5;
+}
+
+.player1 {
+  color: #7400B8;
+}
+
+.player2 {
+  color: #56CFE1;
+}
+
+.players {
+  width: 80%;
+  margin: 3em auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.player-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 10em;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.player-wrapper .state {
+  font-size: 2.5em;
+  font-weight: bolder;
+  padding-right: 0.3em;
+}
+
+.player-wrapper.active {
+  background: #d3edee;
+  border-radius: 8px;
+  -webkit-transition: all 40ms ease-in-out;
+  transition: all 40ms ease-in-out;
+  -webkit-transform: translate(0, -1.2em);
+          transform: translate(0, -1.2em);
+}
+
+.player-wrapper.active .state {
+  font-size: 3.2em;
+  padding-right: 0 0.6em;
+}
+
+.player-wrapper.active label {
+  font-size: 1.4em;
+  color: #101832;
+}
+/*# sourceMappingURL=style.css.map */
