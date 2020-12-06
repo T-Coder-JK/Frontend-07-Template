@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+    .light-container{
+        width: 80%;
+        margin: auto;
+        display: flex;
+        padding-top: 100px;
+        justify-content: space-evenly;
+    }
+
+    .light{
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+    }
+
+    .green{
+        background: green;
+    }
+
+    .yellow{
+        background: yellow;
+    }
+
+    .red{
+        background: red;
+    }
+
+    .invalid{
+        background: grey !important;
+    }
+
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Ligtht</title>
+</head>
+<body>
+    <div class="light-container">
+        <div id="green" class="light green invalid"></div>
+        <div id="yellow" class="light yellow invalid"></div>
+        <div id="red" class="light red invalid"></div>
+    </div>
+</body>
+<script>
+    const tLights = document.querySelectorAll('.light')
+    function lighten(element){
+        element.classList.remove('invalid');
+    }
+
+    function turnOff(element){
+        element.classList.add('invalid');
+    }
+
+    function initLights( ){
+        tLights.forEach((light) => {
+            turnOff(light);
+        });
+    }
+
+    function sleep (t) {
+        return new Promise((resovle, reject) => {
+            setTimeout(resovle, t);
+        });
+    }
+
+    function green(){
+        initLights();
+        const glight = document.querySelector('#green');
+        lighten(glight);
+    }
+
+    function yellow(){
+        initLights();
+        const ylight = document.querySelector('#yellow');
+        lighten(ylight);
+    }
+
+    function red(){
+        initLights();
+        const rlight = document.querySelector('#red');
+        lighten(rlight);
+    }
+
+
+    async function execute(){
+        let i = 10;
+        while(i){
+            green();
+            await sleep(3000);
+            yellow();
+            await sleep(1000);
+            red();
+            await sleep(2000);
+            initLights();
+            i--;
+        }
+    }
+
+    execute();
+
+</script>
+
+
+
+
+
+
+
+
+
+
+</html>
