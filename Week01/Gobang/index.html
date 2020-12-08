@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/style.css">
+    <title>Gobang</title>
+</head>
+
+<body>
+    <div class="goboard-container">
+        <div class="goboard">
+
+        </div>
+    </div>
+</body>
+
+
+<script lang="javascript">
+    const board = document.querySelector('.goboard');
+    let pattern = new Array(225).fill(1);
+    let player = 2;
+
+
+    function draw() {
+        let size = 100 / 15;
+
+        for (let i = 0; i < 15; i++) {
+            for (let j = 0; j < 15; j++) {
+                let point = i * 15 + j;
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.style.width = size + '%';
+                cell.style.height = size + '%';
+                if (pattern[point] !== 1) {
+                    cell.appendChild(createPieces(pattern[point]));
+                } else {
+                    cell.addEventListener('click', () => handleClick(point));
+                }
+
+                if (i === 0) {
+                    if (j === 0) cell.classList.add('fc-cell');
+                    if (j === 14) cell.classList.add('lc-cell');
+                    cell.classList.add('fr-cell');
+                } else if (j === 0) {
+                    if (i === 14) cell.classList.add('lr-cell');
+                    cell.classList.add('fc-cell');
+                } else if (j === 14) {
+                    if (i === 14) cell.classList.add('lr-cell');
+                    cell.classList.add('lc-cell');
+                } else if (i === 14) {
+                    cell.classList.add('lr-cell');
+                } else {
+                    cell.classList.add('n-cell');
+                }
+
+                board.appendChild(cell);
+            }
+
+        }
+    }
+
+    function createPieces(player) {
+        let piece = document.createElement('img');
+        piece.classList.add('pieces');
+        piece.src = player === 2 ? './images/black.png' : './images/white.png';
+
+        return piece;
+    }
+
+
+
+    function handleClick(point) {
+        pattern[point] = player;
+        board.innerHTML = '';
+        draw();
+        togglePlayer();
+    }
+
+    function togglePlayer() {
+        player = 5 - player;
+    }
+
+    draw();
+
+
+
+</script>
+
+</html>

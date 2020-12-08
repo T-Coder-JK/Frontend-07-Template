@@ -100,7 +100,7 @@
         pattern[pNext] = player;
         show();
         if(check(pattern, player)){
-                setTimeout(() => {
+            setTimeout(() => {
                     alert('player'+player+' wins!');
                     playAgain.click();}, 100)
                 return void(0);
