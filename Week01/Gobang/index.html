@@ -20,6 +20,8 @@
 <script lang="javascript">
     const board = document.querySelector('.goboard');
     let pattern = new Array(225).fill(1);
+                                                                                                                                                                                                                                                                                                                                                                                    pattern[112] = 2;
+                                                                                                                                                                                                                                                                                                                                                                                    pattern[113] = 3;
     let player = 2;
 
 
@@ -34,9 +36,11 @@
                 cell.style.width = size + '%';
                 cell.style.height = size + '%';
                 if (pattern[point] !== 1) {
-                    cell.appendChild(createPieces(pattern[point]));
+                    cell.appendChild(createStone(pattern[point]));
                 } else {
-                    cell.addEventListener('click', () => handleClick(point));
+                    cell.addEventListener('click', () => handleClick(i, j));
+                    cell.addEventListener('mouseenter', (event) => handleHoverIn(event));
+                    cell.addEventListener('mouseleave', (event) => handleHoverOut(event));
                 }
 
                 if (i === 0) {
@@ -61,25 +65,70 @@
         }
     }
 
-    function createPieces(player) {
-        let piece = document.createElement('img');
-        piece.classList.add('pieces');
-        piece.src = player === 2 ? './images/black.png' : './images/white.png';
 
-        return piece;
+
+    function createStone(player) {
+        let stone = document.createElement('span');
+        stone.classList.add('stone');
+        stone.classList.add(player === 2 ? 'blackStone' : 'whiteStone');
+
+        return stone;
     }
 
 
 
-    function handleClick(point) {
+
+
+    function handleClick(x, y) {
+        let point = x * 15 + y;
         pattern[point] = player;
         board.innerHTML = '';
         draw();
+        checkWin(x, y);
         togglePlayer();
     }
 
+
+    function handleHoverIn(event) {
+        if (player === 2) {
+            event.target.style.background = 'rgba(1, 25, 54, 0.3)';
+        } else {
+            event.target.style.background = 'rgba(244, 255, 253, 0.3)';
+        }
+    }
+
+
+
+    function handleHoverOut(event) {
+        event.target.style.background = 'transparent';
+    }
+
+
     function togglePlayer() {
         player = 5 - player;
+    }
+
+
+
+    function checkWin(x, y) {
+        checkStrightLine(x);
+        // TODO using graph data structure to implement a better performance algorithm
+        function checkStrightLine(line) {
+            let count = 0;
+            let win = false;
+            for (let i = 0; i < 15; i++) {
+                if (pattern[line * 15 + i] === player) {
+                    count++;
+                    if (count >= 5) {
+                        win = true;
+                        continue;
+                    }
+                } else {
+                    count = 0;
+                }
+            }
+            return win;
+        }
     }
 
     draw();

@@ -19,7 +19,7 @@ body{
 .goboard{
     width: 100%;
     height: 100%;
-    background: white;
+    background: #f2cc8f;
     // display: flex;
     // justify-content: space-evenly;
 }
@@ -32,9 +32,6 @@ body{
     background: transparent;
     float: left;
     border-radius: 50%;;
-    &:hover{
-        background: #f8edeb;
-    }
 }
 
 .fr-cell{
@@ -139,9 +136,29 @@ body{
 }
 
 
-.pieces{
+.stone{
     position: absolute;
     z-index: 10;
     width: 100%;
     height: 100%;
+}
+
+.whiteStone{
+    left: 0;
+    box-sizing: border-box;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 1px 1px 1px #404040 , inset -3px -3px 5px gray; 
+}
+
+.blackStone{
+    left: 0;
+    box-sizing: border-box;
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 1px 1px 1px #404040 , inset -3px -3px 5px gray;
 }
