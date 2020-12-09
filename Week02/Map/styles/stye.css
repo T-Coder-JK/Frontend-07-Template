@@ -1,0 +1,74 @@
+body {
+  font-size: 16px;
+}
+
+.map-container {
+  width: 850px;
+  margin: auto;
+}
+
+.button-container {
+  top: 10px;
+  width: 100px;
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin: auto;
+}
+
+.button-container .button {
+  font-size: 0.8em;
+  width: 90px;
+  height: 40px;
+  margin: 0 10px 20px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.button-container #save {
+  background: #2a9d8f;
+}
+
+.button-container #remove {
+  background: #f4a261;
+}
+
+.cell {
+  line-height: 7px;
+  width: 6px;
+  height: 6px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  float: left;
+  border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+
+.map {
+  width: 700px;
+  height: 700px;
+  display: inline-block;
+  border-top: gray 1px solid;
+  border-left: gray 1px solid;
+}
+
+.notic {
+  font-size: 1.5em;
+  position: absolute;
+  top: 0.5em;
+  right: 1.5em;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  opacity: 0;
+}
+
+.remove {
+  color: #e63946;
+}
+
+.save {
+  color: #06d6a0;
+}
+/*# sourceMappingURL=stye.css.map */

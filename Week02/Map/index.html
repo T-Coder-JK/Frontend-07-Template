@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/stye.css">
+    <title>Map Editor</title>
+</head>
+
+<body>
+    <p class="notic remove">Removed!</p>
+    <p class="notic save">Saved!</p>
+    <div class="map-container">
+        <div class="map"></div>
+        <div class="button-container">
+            <button id="save" class="button">Save</button>
+            <button class="button" id="remove">Remove All</button>
+        </div>
+    </div>
+
+</body>
+
+
+<script>
+    const map = document.querySelector('.map');
+    const save = document.querySelector('#save');
+    const remove = document.querySelector('#remove');
+    let mapData = localStorage.getItem('mapData') ? JSON.parse(localStorage.getItem('mapData')) : new Array(10000).fill(0);
+    let mousedown = false;
+    let clear = false;
+
+    function show() {
+        for (let x = 0; x < 100; x++) {
+            for (let y = 0; y < 100; y++) {
+                const cell = document.createElement('span');
+                let point = x * 100 + y;
+                cell.classList.add('cell');
+                if (mapData[point]) {
+                    cell.style.background = '#e76f51';
+                } else {
+                    cell.style.background = '';
+                }
+                cell.addEventListener('mousemove', (e) => {
+                    if (mousedown) {
+                        if (clear) {
+                            cell.style.background = '';
+                            mapData[point] = 0;
+                        } else {
+                            mapData[point] = 1;
+                            cell.style.background = '#e76f51';
+                        }
+                    }
+                });
+
+                map.append(cell);
+            }
+        }
+    }
+
+    show();
+
+
+    document.addEventListener('mousedown', (e) => {
+        mousedown = true;
+        if (e.button === 2) {
+            clear = true;
+        }
+    });
+    document.addEventListener('mouseup', () => {
+        mousedown = false;
+        clear = false;
+    });
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+    save.addEventListener('click', () => {
+        localStorage.setItem('mapData', JSON.stringify(mapData));
+        save.style.border = '5px solid #06d6a0'
+        const saveNoti = document.querySelector('.save');
+        saveNoti.style.opacity = 1;
+
+        setTimeout(() => {
+            save.style.border = '1px solid gray';
+            saveNoti.style.opacity = 0;
+        }, 1000)
+    })
+    remove.addEventListener('click', () => {
+        mapData.fill(0);
+        remove.style.border = '5px solid #e63946'
+        const removeNoti = document.querySelector('.remove');
+        removeNoti.style.opacity = 1;
+        setTimeout(() => {
+            remove.style.border = '1px solid gray';
+            removeNoti.style.opacity = 0;
+        }, 1000)
+        map.innerHTML = '';
+        localStorage.clear();
+        show();
+    });
+</script>
+
+</html>
