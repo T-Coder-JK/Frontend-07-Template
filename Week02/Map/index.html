@@ -1,102 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/stye.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/stye.css" />
+    <script type="module" src="index.js"></script>
     <title>Map Editor</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <p class="notic remove">Removed!</p>
     <p class="notic save">Saved!</p>
     <div class="map-container">
-        <div class="map"></div>
+      <div class="map"></div>
         <div class="button-container">
-            <button id="save" class="button">Save</button>
-            <button class="button" id="remove">Remove All</button>
-        </div>
+          <button id="bfs" class="button">BFS</button>
+          <button id="aStar" class="button">A*(sorted)</button>
+          <span>Start Point</span>
+          <div class="cell" style="background: #48bfe3"></div>
+          <div>(0 -- 100 Int)</div>
+          <div>
+            <label for="start-x">x</label>
+            <input id='start-x' type='num' value='0'>
+          </div>
+          <div>
+            <label for="start-y">y</label>
+            <input id='start-y' type='num' value='0'>
+          </div><br>
+          <span>End Point</span>
+          <div class="cell" style="background: #fca311"></div>
+          <div>(0 -- 100 Int)</div>
+          <div>
+            <label for="end-x">x</label>
+            <input id='end-x' type='num' value='20'>
+          </div>
+          <div>
+            <label for="end-y">y</label>
+            <input id='end-y' type='num' value='20'>
+          </div><br>
+          <button id="save" class="button">Save Maze</button>
+          <button class="button" id="remove">Delete Maze</button>
+          </div>
+      </div>
     </div>
-
-</body>
-
-
-<script>
-    const map = document.querySelector('.map');
-    const save = document.querySelector('#save');
-    const remove = document.querySelector('#remove');
-    let mapData = localStorage.getItem('mapData') ? JSON.parse(localStorage.getItem('mapData')) : new Array(10000).fill(0);
-    let mousedown = false;
-    let clear = false;
-
-    function show() {
-        for (let x = 0; x < 100; x++) {
-            for (let y = 0; y < 100; y++) {
-                const cell = document.createElement('span');
-                let point = x * 100 + y;
-                cell.classList.add('cell');
-                if (mapData[point]) {
-                    cell.style.background = '#e76f51';
-                } else {
-                    cell.style.background = '';
-                }
-                cell.addEventListener('mousemove', (e) => {
-                    if (mousedown) {
-                        if (clear) {
-                            cell.style.background = '';
-                            mapData[point] = 0;
-                        } else {
-                            mapData[point] = 1;
-                            cell.style.background = '#e76f51';
-                        }
-                    }
-                });
-
-                map.append(cell);
-            }
-        }
-    }
-
-    show();
-
-
-    document.addEventListener('mousedown', (e) => {
-        mousedown = true;
-        if (e.button === 2) {
-            clear = true;
-        }
-    });
-    document.addEventListener('mouseup', () => {
-        mousedown = false;
-        clear = false;
-    });
-    document.addEventListener('contextmenu', (e) => e.preventDefault());
-
-    save.addEventListener('click', () => {
-        localStorage.setItem('mapData', JSON.stringify(mapData));
-        save.style.border = '5px solid #06d6a0'
-        const saveNoti = document.querySelector('.save');
-        saveNoti.style.opacity = 1;
-
-        setTimeout(() => {
-            save.style.border = '1px solid gray';
-            saveNoti.style.opacity = 0;
-        }, 1000)
-    })
-    remove.addEventListener('click', () => {
-        mapData.fill(0);
-        remove.style.border = '5px solid #e63946'
-        const removeNoti = document.querySelector('.remove');
-        removeNoti.style.opacity = 1;
-        setTimeout(() => {
-            remove.style.border = '1px solid gray';
-            removeNoti.style.opacity = 0;
-        }, 1000)
-        map.innerHTML = '';
-        localStorage.clear();
-        show();
-    });
-</script>
-
+  </body>
 </html>

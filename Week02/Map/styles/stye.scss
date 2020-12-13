@@ -1,3 +1,6 @@
+$wall-color: #e76f51;
+$start-point: #48bfe3;
+$end-point: #fca311;
 body{
     font-size: 16px;
 }
@@ -15,6 +18,7 @@ body{
         margin: 0 10px 20px 10px;
         border-radius: 8px;
         cursor: pointer;
+        
     }
     #save{
         background: #2a9d8f;
@@ -28,6 +32,10 @@ body{
     display: inline-block;
     vertical-align: top;
     margin: auto;
+    input{
+        width: 80%;
+        margin-bottom: 0.5em;
+    }
 }
 
 .cell{
@@ -57,6 +65,7 @@ body{
     padding: 0;
     font-weight: bold;
     opacity: 0;
+    pointer-events: none;
 }
 .remove{
     color:#e63946
