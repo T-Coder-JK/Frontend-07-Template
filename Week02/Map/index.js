@@ -1,6 +1,6 @@
 import bfs from "./algorithms/bfs.js";
 import aStar from "./algorithms/aStar.js";
-
+import heapAStart from "./algorithms/heapAStar.js";
 const map = document.querySelector(".map");
 const save = document.querySelector("#save");
 const remove = document.querySelector("#remove");
@@ -161,6 +161,15 @@ buttonAstar1.addEventListener("click", () => {
     : new Array(10000).fill("+");
   show();
   aStar([start.x(), start.y()], [end.x(), end.y()], mapData, map);
+});
+
+const buttonAstar2 = document.querySelector("#heap");
+buttonAstar2.addEventListener("click", () => {
+  mapData = localStorage.getItem("mapData")
+    ? JSON.parse(localStorage.getItem("mapData"))
+    : new Array(10000).fill("+");
+  show();
+  heapAStart([start.x(), start.y()], [end.x(), end.y()], mapData, map);
 });
 
 //showing start point and end point on map
