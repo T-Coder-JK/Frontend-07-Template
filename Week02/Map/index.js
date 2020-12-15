@@ -4,6 +4,7 @@ import heapAStart from "./algorithms/heapAStar.js";
 const map = document.querySelector(".map");
 const save = document.querySelector("#save");
 const remove = document.querySelector("#remove");
+const pathOutput = document.querySelector("#path-length");
 let mapData = localStorage.getItem("mapData")
   ? JSON.parse(localStorage.getItem("mapData"))
   : new Array(10000).fill("+");
@@ -151,7 +152,10 @@ buttonBFS.addEventListener("click", () => {
     : new Array(10000).fill("+");
   show();
   // console.log(startX, startY, endX, endY, map);
-  bfs([start.x(), start.y()], [end.x(), end.y()], mapData, map);
+  let path = bfs([start.x(), start.y()], [end.x(), end.y()], mapData, map);
+  path.then((result) => {
+    pathOutput.innerHTML = result.length;
+  });
 });
 
 const buttonAstar1 = document.querySelector("#aStar");
@@ -160,7 +164,11 @@ buttonAstar1.addEventListener("click", () => {
     ? JSON.parse(localStorage.getItem("mapData"))
     : new Array(10000).fill("+");
   show();
-  aStar([start.x(), start.y()], [end.x(), end.y()], mapData, map);
+  aStar([start.x(), start.y()], [end.x(), end.y()], mapData, map).then(
+    (result) => {
+      pathOutput.innerHTML = result.length;
+    }
+  );
 });
 
 const buttonAstar2 = document.querySelector("#heap");
@@ -169,7 +177,11 @@ buttonAstar2.addEventListener("click", () => {
     ? JSON.parse(localStorage.getItem("mapData"))
     : new Array(10000).fill("+");
   show();
-  heapAStart([start.x(), start.y()], [end.x(), end.y()], mapData, map);
+  heapAStart([start.x(), start.y()], [end.x(), end.y()], mapData, map).then(
+    (result) => {
+      pathOutput.innerHTML = result.length;
+    }
+  );
 });
 
 //showing start point and end point on map

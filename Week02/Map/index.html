@@ -11,12 +11,16 @@
   <body>
     <p class="notic remove">Removed!</p>
     <p class="notic save">Saved!</p>
+    <div class="path-output">
+      <p>Path Length:</p>
+      <p id="path-length"></p>
+    </div>
     <div class="map-container">
       <div class="map"></div>
         <div class="button-container">
           <button id="bfs" class="button">BFS</button>
           <button id="aStar" class="button">A*(sorted)</button>
-          <button id="heap" class="button">A*(heapPQ)</button>
+          <button id="heap" class="button" style="height: 60px; font-size: 0.7em;">A* (Heap PQ and Optimise Path)</button>
           <span>Start Point</span>
           <div class="cell" style="background: #48bfe3"></div>
           <div>(0 -- 100 Int)</div>

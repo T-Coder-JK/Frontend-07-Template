@@ -41,6 +41,7 @@ export default class HeapPQ {
   }
 
   extract() {
+    if (this.length < 1) return null;
     let min = this.heap[1];
     this.exchange(1, this.length);
     this.heap.pop();

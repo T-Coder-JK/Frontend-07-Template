@@ -14,28 +14,50 @@ export default async function (sPoint, ePoint, mapData, map) {
       return;
     }
     let index = y * 100 + x;
-    if (mapData[index] != "+") {
+    let preNode = ly * 100 + lx;
+    if (mapData[index] == "-") {
       return;
     }
-    let preNode = ly * 100 + lx;
-    mapData[index] = preNode;
-    await timeoutPromise(1);
-    map.children[index].style.background = "#d8f3dc";
-    sortedArray.insert([x, y]);
+    if(typeof mapData[index] ==='object' ){
+      if(mapData[index].distance > mapData[preNode].distance +1){
+        mapData[index] = {
+          preNode: preNode,
+          distance: mapData[preNode].distance + 1,
+        };
+      }
+    }else{
+      mapData[index] = {
+        preNode: preNode,
+        distance: mapData[preNode].distance + 1
+      };
+      await timeoutPromise(1);
+      map.children[index].style.background = "#d8f3dc";
+      sortedArray.insert([x, y]);
+    }
   }
+
+
+
+
   while (sortedArray.length) {
     let point = sortedArray.extract();
+    if (point[0] === sPoint[0] && point[1] === sPoint[1]) {
+      mapData[point[1] * 100 + point[0]] = {
+        preNode: null,
+        distance: 0,
+      };
+    }
     if (point[0] === ePoint[0] && point[1] === ePoint[1]) {
       let endIndex = point[1] * 100 + point[0];
       let startIndex = sPoint[1] * 100 + sPoint[0];
       path.push(endIndex);
       map.children[endIndex].style.background = "#fca311";
-      let preNode = mapData[endIndex];
+      let preNode = mapData[endIndex].preNode;
       while (preNode != startIndex) {
         path.push(preNode);
         await timeoutPromise(1);
         map.children[preNode].style.background = "#ffff3f";
-        preNode = mapData[preNode];
+        preNode = mapData[preNode].preNode;
       }
       path.push(startIndex);
       map.children[startIndex].style.background = "#48bfe3";
