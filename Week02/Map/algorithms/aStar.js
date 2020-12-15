@@ -21,6 +21,7 @@ export default async function (sPoint, ePoint, mapData, map) {
     }
     let preNode = ly * 100 + lx;
     mapData[index] = preNode;
+    // await timeoutPromise(1);
     map.children[index].style.background = "#d8f3dc";
     sortedArray.insert([x, y]);
   }

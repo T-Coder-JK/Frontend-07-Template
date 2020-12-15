@@ -15,20 +15,22 @@ export default async function (sPoint, ePoint, mapData, map) {
     }
     let index = y * 100 + x;
     let preNode = ly * 100 + lx;
+    // let distoPre = (x - lx) ** 2 + (y - ly) ** 2;
+    let distoPre = 1;
     if (mapData[index] == "-") {
       return;
     }
-    if(typeof mapData[index] ==='object' ){
-      if(mapData[index].distance > mapData[preNode].distance +1){
+    if (typeof mapData[index] === "object") {
+      if (mapData[index].distance > mapData[preNode].distance + distoPre) {
         mapData[index] = {
           preNode: preNode,
-          distance: mapData[preNode].distance + 1,
+          distance: mapData[preNode].distance + distoPre,
         };
       }
-    }else{
+    } else {
       mapData[index] = {
         preNode: preNode,
-        distance: mapData[preNode].distance + 1
+        distance: mapData[preNode].distance + distoPre,
       };
       await timeoutPromise(1);
       map.children[index].style.background = "#d8f3dc";

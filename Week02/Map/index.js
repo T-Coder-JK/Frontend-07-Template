@@ -152,12 +152,12 @@ buttonBFS.addEventListener("click", () => {
     : new Array(10000).fill("+");
   show();
   // console.log(startX, startY, endX, endY, map);
-  let path = bfs([start.x(), start.y()], [end.x(), end.y()], mapData, map);
-  path.then((result) => {
-    pathOutput.innerHTML = result.length;
-  });
+  bfs([start.x(), start.y()], [end.x(), end.y()], mapData, map).then(
+    (result) => {
+      showPathResult(result);
+    }
+  );
 });
-
 const buttonAstar1 = document.querySelector("#aStar");
 buttonAstar1.addEventListener("click", () => {
   mapData = localStorage.getItem("mapData")
@@ -166,7 +166,7 @@ buttonAstar1.addEventListener("click", () => {
   show();
   aStar([start.x(), start.y()], [end.x(), end.y()], mapData, map).then(
     (result) => {
-      pathOutput.innerHTML = result.length;
+      showPathResult(result);
     }
   );
 });
@@ -179,7 +179,7 @@ buttonAstar2.addEventListener("click", () => {
   show();
   heapAStart([start.x(), start.y()], [end.x(), end.y()], mapData, map).then(
     (result) => {
-      pathOutput.innerHTML = result.length;
+      showPathResult(result);
     }
   );
 });
@@ -203,6 +203,7 @@ function coordinateToIndex(x, y) {
   return y * 100 + x;
 }
 
+
 const cordInputs = document.querySelectorAll("input");
 cordInputs.forEach((cordInput) => {
   cordInput.addEventListener("keyup", () => {
@@ -219,3 +220,11 @@ cordInputs.forEach((cordInput) => {
     }
   });
 });
+
+function showPathResult(result) {
+  if (result !== null) {
+    pathOutput.innerHTML = result.length;
+  } else {
+    pathOutput.innerHTML = "null";
+  }
+}
