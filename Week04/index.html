@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Matching</title>
+    <script type="module" src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>KMP Substring Matching</h1>
+        <div class="input-wrapper">
+            <label for="pattern">Pattern</label>
+            <input type="text" id="pattern" class="exp-string" value="ABABAC">
+            <br>
+            <label for="text-match">Text</label>
+            <input type="text" id="text-match" class="exp-string" value="ABABBABABACBDZ">
+
+        </div>
+        <button id="create">Matching</button>
+    </div>
+    <div class="log-window">
+        <pre id="log">
+><hr>
+        </pre>
+        <!-- <div id="log"></div> -->
+    </div>
+
+</body>
+
+</html>

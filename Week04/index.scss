@@ -1,0 +1,104 @@
+body{
+    margin: 0;
+    font-size: 16px;
+}
+
+.container{
+    margin: auto;
+    width: 80%;
+    min-width: 20em;
+    h1{
+        margin: 2em auto;
+        width: 90%;
+        text-align: center;
+        color: #457b9d;
+    }
+}
+
+.input-wrapper{
+    width: 80%;
+    height: 8em;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    label{
+        display: block;
+        color: #457b9d;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+}
+
+.exp-string{
+    display: block;
+    width: 100%;
+    height: 2.5em;
+    font-size: 1em;
+    text-align: center;
+    border: 0;
+    border-bottom: 1.5px  #6d6875 solid;
+    color: #6d6875;
+    cursor: pointer;
+    transition-property: border-bottom font-size;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in;
+    &:focus{
+        outline: none;
+        font-size: 1.2em;
+        border-bottom: 1.5px  #00b4d8 solid;
+        color:#00b4d8;
+    }
+
+}
+
+#create{
+    display: block;
+    margin: 1em auto;
+    padding: 0.8em;
+    color: white;
+    background-color: #1d3557;
+    border: 1px solid #1d3557;
+    border-radius: 8px;
+    box-shadow: 0 4px 2px 0 gray;
+    transition-property: transform box-shadow;
+    transition-duration: 100ms;
+    transition-timing-function: ease-in;
+    &:active{
+        outline: none;
+        box-shadow: 0 2px 2px 0 gray;
+        transform: translateY(2px);
+    }
+    &:focus{
+        outline: none;
+    }
+}
+
+.log-window{
+    width: 80%;
+    height: 20em;
+    overflow-y: scroll;
+    margin: 2em auto;
+    color: #f0efeb;
+    background-color: #1d3557;
+    padding: 5px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px 2px #1d3557;
+    &::-webkit-scrollbar{
+        background: #1d3557;
+        width: 0.6em;
+        border-radius: 0 8px 8px 0;
+    }
+    &::-webkit-scrollbar-thumb{
+        border-radius: 0 8px 8px 0;
+        background-color: rgba(202, 240, 248, 0.5);
+    }
+    .string { color: #f1faee; }
+    .number { color: #a8dadc; }
+    .boolean { color: blue; }
+    .null { color: magenta; }
+    .key { color: #e63946; }
+    hr{
+        border-top: 1px dotted gray;
+        border-bottom: 0;
+    }
+}
