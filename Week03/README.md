@@ -74,7 +74,7 @@ Arithmetic Expression Production Rules。 常见的一种四则运算语法产�
     - 当global和sticky状态同时为true时，global会被忽略。
     - 当RegExp使用`()|()|...`结构时，`.exec()`的返回值是一个Array数据类型， 匹配成功时Array[0]为捕获的匹配，之后的Array[1] - Aarray[n]对应RegExp的每个`()`中正则的匹配结果，匹配成功的返回捕获的结果，没有成功的返回`undefine`. 其索引顺序与`()`中正则的初始化排列顺序相同(arbitrary order)。之后Aarray中还会返回`Array[index], Array[input], Array[grounp]`等结果。 如果没有成功的匹配结果，其返回值为`null`.
 
-2. JS中只有在`''`中可以使用`${}`插入变量的语法表达，而在`""`中不可以。
+2. JS中只有在``中可以使用${}插入变量的语法表达，而在`"" or ''`中不可以。
 
 3. JS中**yield**关键字， 与C++和PHP中的用法类似，都是在生成器函数(generator function)中调用，yield会返回一个值给循环调用此生成器的代码并且只是暂停循环的执行。yield关键字只能在包含其的生成器函数本身调用，不能使用在生成器函数所包含的函数或者回调中。 生成器函数的返回的是一个可迭代的对象(IteratorResult Object)迭代器(iterator),这个返回的迭代器每次调用`.next()`方法的返回的对象包含两个属性`value`和`done`. `value`属性中保存的值就是`yield`关键字所返回的表达式或值， `done`属性表示生成器函数是否完全运行结束。 当`yield`返回值后，生成器函数会一直处于暂停状态直到下个其生成的迭代器(iterator)`.next()`方法被调. `yield*`关键字可以引用其他生成器函数或者可迭代对象。 
 [*Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield).
