@@ -1,0 +1,27 @@
+body{
+    font-size: 16px;
+}
+
+.input-wrapper{
+    width: 80%;
+    margin: auto;
+    min-width: 40em;
+    padding-top: 5em;
+    input{
+        width: 21%;
+    }
+}
+
+.color-palette{
+    width: 20em;
+    height: 20em;
+    margin: 5em auto;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 8px 3px  gray;
+    span{
+        color: #f0efeb;
+    }
+}

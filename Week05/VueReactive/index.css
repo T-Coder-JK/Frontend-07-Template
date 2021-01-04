@@ -1,0 +1,37 @@
+body {
+  font-size: 16px;
+}
+
+.input-wrapper {
+  width: 80%;
+  margin: auto;
+  min-width: 40em;
+  padding-top: 5em;
+}
+
+.input-wrapper input {
+  width: 21%;
+}
+
+.color-palette {
+  width: 20em;
+  height: 20em;
+  margin: 5em auto;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: 0 0 8px 3px  gray;
+          box-shadow: 0 0 8px 3px  gray;
+}
+
+.color-palette span {
+  color: #f0efeb;
+}
+/*# sourceMappingURL=index.css.map */
