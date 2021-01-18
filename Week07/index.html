@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number and String Convert</title>
+    <script src="https://gw.alipayobjects.com/os/lib/antv/g6/4.1.1/dist/g6.min.js"></script>
+    <script type="module" src="./index.js"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+</body>
+<script>
+    var test = WebAssembly;
+    var test2 = Math;
+    const intrinsicObj = ['Date', 'RegExp', 'String', 'Number', 'BigInt', 'WebAssembly',
+        'Intl', 'Math', 'Reflect', 'Promise', 'GeneratorFunction', 'AsyncFunction', 'ArrayBuffer',
+        'SharedArrayBuffer', 'Atomics', 'DataView', 'JSON', 'Map', 'Set', 'WeakSet', 'WeakMap', 'Array', 'Int8Array',
+        'int8Array', 'Uint8ClampedArray', 'Int16Array', 'Uint16Array', 'Int32Array', 'Uint32Array', 'Float32Array',
+        'Float64Array', 'BigInt64Array', 'BigUint64Array']
+    let objRealm = [];
+    Object.keys(window).forEach(key => {
+        if (intrinsicObj.includes(type(window[key]))) {
+            objRealm.push([type(window[key]), key]);
+        }
+    });
+    console.log(objRealm);
+
+    function type(obj) {
+        return Object.prototype.toString.call(obj).match(/\[\w+ (\w+)\]/)[1]
+    }
+    function propType(obj) {
+        return Object.getPrototypeOf(obj).constructor.name;
+    }
+    let nodes = [];
+    let edges = [];
+    intrinsicObj.forEach(item => {
+        nodes.push({
+            id: item,
+            label: item,
+            shape: "circle",
+            size: item.length / 2 * 15,
+            color: "#0096c7",
+            style: {
+                fill: "#14213d",
+            },
+            labelCfg: {
+                style: {
+                    fill: "#e5e5e5",
+                    fontSize: 10
+                }
+            }
+        })
+    });
+    objRealm.forEach(item => {
+        nodes.push({
+            id: item[1],
+            label: item[1],
+            size: item[1].length / 2 * 13,
+            color: '#ade8f4',
+            shape: 'circle',
+            style: {
+                fill: '#0077b6'
+            },
+            labelCfg: {
+                style: {
+                    fill: "#e5e5e5",
+                    fontSize: 10
+                }
+            }
+        });
+        edges.push({
+            source: item[1],
+            target: item[0]
+        })
+    })
+    const data = {
+        nodes: nodes,
+        edges: edges
+    };
+
+    const graph = new G6.Graph({
+        container: "container",
+        width: innerWidth,
+        height: innerHeight,
+        layout: {
+            type: 'force',
+            // preventOverlap: true,
+            center: [innerWidth / 2, innerHeight / 2], // The center of the graph by default
+            linkDistance: 80, // Edge length
+            nodeStrength: -80,
+            // edgeStrength: 100,
+            collideStrength: 1,
+            // nodeSize: 30,
+            alpha: 0.2,
+            alphaDecay: 0.028,
+            alphaMin: 0.01,
+            forceSimulation: null,
+        },
+        defaultEdge: {
+            style: {
+                stroke: "#e2e2e2"
+            }
+        }
+    });
+
+    graph.data(data);
+    graph.on('node:mouseenter', (ev) => {
+        // Get the target of the entering event
+        const node = ev.item;
+        node.toFront();
+        console.log(node.getState);
+        // Get the related edges of the node
+        const edges = node.getEdges();
+        // Travers the related edges, shift them to the front, and then shift the end nodes to the front
+        edges.forEach((edge) => {
+            edge.toFront();
+            edge.getSource().toFront();
+            edge.getTarget().toFront();
+        });
+        // Attention: the following code must be called to repaint the graph
+        graph.paint();
+    });
+
+    graph.on('node:mouseleave', (ev) => {
+        // Get all the edge instances of the graph
+        const edges = graph.getEdges();
+        // Travers the edges, shift them to the back to restore
+        edges.forEach((edge) => {
+            edge.toBack();
+        });
+        // Attention: the following code must be called to repaint the graph
+        graph.paint();
+    });
+    graph.render();
+</script>
+
+</html>
